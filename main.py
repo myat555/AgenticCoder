@@ -29,8 +29,7 @@ programmer_agent = Agent(
     tools=[code_interpreter],
     verbose=True,
     llm=deepseek_llm
-    # To use Ollama LLM, uncomment the line below and comment the line above
-    # llm=ollama_llm
+    # To use Ollama LLM, change the llm to ollama_llm
 )
 
 # Get user input for task description and expected output
