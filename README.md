@@ -6,7 +6,7 @@ This project aims to use CrewAI, an open-source framework for building AI agents
 ## Requirements
 
 - Python 3.9 or higher
-- Install dependencies: `pip install crewai ollama`
+- Install dependencies: `pip install crewai`
 - Set up Ollama (if using local models): Follow installation instructions at [Ollama.ai](https://ollama.ai)
 - API keys for any cloud-based LLM services configured in environment variables
 - Docker is required in order to run the CodeInterpreterTool that will execute the code in a container
