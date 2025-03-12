@@ -15,6 +15,12 @@ deepseek_llm = LLM(
     api_key=os.getenv("DEEPSEEK_API_KEY")
 )
 
+# For Ollama LLM, you need to run the Ollama server locally
+ollama_llm = LLM(
+    model="ollama/llama3.2",
+    base_url="http://localhost:11434"
+)
+
 # Define an agent that uses the tool
 programmer_agent = Agent(
     role="Python Programmer",
@@ -23,6 +29,8 @@ programmer_agent = Agent(
     tools=[code_interpreter],
     verbose=True,
     llm=deepseek_llm
+    # To use Ollama LLM, uncomment the line below and comment the line above
+    # llm=ollama_llm
 )
 
 # Get user input for task description and expected output
