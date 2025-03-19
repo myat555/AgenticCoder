@@ -1,11 +1,24 @@
-#!/usr/bin/env python
 import os
 from crewai import Agent, Task, Crew, Process, LLM
 from crewai_tools import CodeInterpreterTool
 from dotenv import load_dotenv
+from typing import Any
+
+# Custom tool to save generated code
+class CodeSaverTool(CodeInterpreterTool):
+    def _run(self, code: str, libraries_used: list[str] | None = None) -> Any:
+        """Execute code first, then save to descriptive filename"""
+        # Execute code first
+        result = super()._run(code=code, libraries_used=libraries_used or [])
+        filename = f"generated_code.py"
+        
+        # Save code after successful execution
+        with open(filename, "w") as f:
+            f.write(code)
+        return result
 
 # Initialize the tool
-code_interpreter = CodeInterpreterTool()
+code_interpreter = CodeSaverTool()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -17,7 +30,7 @@ deepseek_llm = LLM(
 
 # For Ollama LLM, you need to run the Ollama server locally
 ollama_llm = LLM(
-    model="ollama/llama3.2",
+    model="ollama/qwen2.5-coder:7b",
     base_url="http://localhost:11434"
 )
 
@@ -28,7 +41,7 @@ programmer_agent = Agent(
     backstory="An expert Python programmer who can write efficient code to solve complex problems.",
     tools=[code_interpreter],
     verbose=True,
-    llm=deepseek_llm
+    llm=ollama_llm
     # To use Ollama LLM, change the llm to ollama_llm
 )
 
@@ -53,7 +66,7 @@ while True:
     if more == "n":
         break
 
-task_description = "Write Python code to:\n" + "\n".join(task_points)
+task_description = "Write Python code to:\n" + "\n".join(task_points) + "\n\n" + "Make sure to handle any necessary imports and print the results."
 
 expected_output = input("Enter the expected output: ").strip()
 while not expected_output:
