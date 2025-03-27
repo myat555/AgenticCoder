@@ -1,1 +1,5 @@
 .env
+__pycache__/
+*.pyc
+temp_solution.py
+benchmark_results_*.json
