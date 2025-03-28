@@ -9,6 +9,7 @@ import time
 from datetime import datetime
 import importlib.util
 
+
 # Custom tool to execute code
 class CodeInterpreterTool(CodeInterpreterTool):
     def _run(self, code: str, libraries_used: list[str] | None = None) -> Any:
@@ -46,7 +47,12 @@ class BenchmarkSystem:
 The function should be named {problem['entry_point']} and should match the following signature:
 {function_signature}
 
-Make sure to handle all edge cases and follow Python best practices."""
+Important:
+1. Include all necessary imports at the top of the code
+2. Handle all edge cases
+3. Follow Python best practices
+4. Make sure the function is self-contained and doesn't rely on external variables
+5. Return the correct type as specified in the function signature"""
 
         return Task(
             description=prompt,
@@ -70,10 +76,9 @@ Make sure to handle all edge cases and follow Python best practices."""
         test_results = []
         for test_case in problem['test']:
             try:
-                # Execute the test case
                 exec(test_case, {'solution': solution_func})
                 test_results.append(True)
-            except Exception as e:
+            except Exception:
                 test_results.append(False)
         
         # Clean up
@@ -101,7 +106,10 @@ Make sure to handle all edge cases and follow Python best practices."""
             if i >= num_problems:
                 break
                 
-            print(f"\nProcessing problem {i+1}/{num_problems}")
+            print(f"\n{'='*50}")
+            print(f"Processing problem {i+1}/{num_problems}")
+            print(f"Function: {problem['entry_point']}")
+            print(f"{'='*50}")
             
             # Create and run the task
             task = self.create_coding_task(problem)
@@ -125,10 +133,16 @@ Make sure to handle all edge cases and follow Python best practices."""
             results.append({
                 'problem_id': i,
                 'task_id': problem['task_id'],
+                'function_name': problem['entry_point'],
                 'execution_time': end_time - start_time,
                 'evaluation': evaluation,
                 'generated_code': generated_code
             })
+            
+            # Print problem summary
+            print(f"Success Rate: {evaluation['success_rate']*100:.2f}%")
+            print(f"Execution Time: {end_time - start_time:.2f} seconds")
+            print(f"{'='*50}")
             
         return results
 
