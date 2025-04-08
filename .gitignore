@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 temp_solution.py
 benchmark_results_*.json
+benchmark_results_comparison_*.json

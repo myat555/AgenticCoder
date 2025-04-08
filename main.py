@@ -29,6 +29,12 @@ deepseek_llm = LLM(
     api_key=os.getenv("DEEPSEEK_API_KEY")
 )
 
+gemini_llm = LLM(
+    model="gemini/gemini-2.5-pro-exp-03-25",
+    temperature=0.1,
+    api_key=os.getenv("GEMINI_API_KEY")
+)
+
 # For Ollama LLM, you need to run the Ollama server locally
 ollama_llm = LLM(
     model="ollama/qwen2.5-coder:7b",

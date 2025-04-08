@@ -2,3 +2,4 @@ crewai
 crewai-tools
 python-dotenv
 datasets
+tqdm
