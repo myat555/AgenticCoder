@@ -4,3 +4,5 @@ __pycache__/
 temp_solution.py
 benchmark_results_*.json
 benchmark_results_comparison_*.json
+.gradio/
+solution_*.json

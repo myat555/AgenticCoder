@@ -1,5 +1,6 @@
-crewai
-crewai-tools
-python-dotenv
-datasets
+crewai>=0.11.0
+crewai-tools>=0.0.10
+python-dotenv>=1.0.0
+datasets>=2.16.0
 tqdm
+gradio>=4.19.2
