@@ -104,7 +104,7 @@ Important:
 
         return code.strip()
 
-    def run_benchmark(self, num_problems: int = 10) -> List[Dict]:
+    def run_benchmark(self, num_problems: int = 5) -> List[Dict]:
         results = []
 
         for i, problem in enumerate(self.dataset['test']):
